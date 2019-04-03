@@ -27,7 +27,8 @@ module.exports = function(sequelize, DataTypes) {
 
   User.associate = function(models) {
     User.hasMany(models.message, {
-      as: "user_uuid"
+      //as: "user_uuid",
+      underscored: true
     });
   };
 

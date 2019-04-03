@@ -40,7 +40,8 @@ module.exports = function(sequelize, DataTypes) {
     Message.belongsTo(models.user, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      underscored: true
     });
   };
 
