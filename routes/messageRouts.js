@@ -17,6 +17,23 @@ module.exports = function(app) {
     }
   });
 
+  app.get("/api/v1/messages/org", function(req, res) {
+    try {
+      var query = {};
+      query.uuid = req.query.uuid;
+
+      db.message
+        .findOne({
+          where: query
+        })
+        .then(function(dbmessage) {
+          res.json(dbmessage);
+        });
+    } catch (err) {
+      res.status(400).json("Invalid request");
+    }
+  });
+
   app.post("/api/v1/messages", function(req, res) {
     try {
       delete req.body.uuid;
