@@ -24,26 +24,26 @@ module.exports = function(sequelize, DataTypes) {
           }
         }
       },
-      contact_info: {
+      contactInfo: {
         type: DataTypes.TEXT,
         allowNull: true,
         defaultValue: null
       }
     },
     {
-      freezeTableName: true,
-      underscored: true
+      freezeTableName: true
+      //underscored: true
     }
   );
 
-  Message.associate = function(models) {
+  /* Message.associate = function(models) {
     Message.belongsTo(models.user, {
       foreignKey: {
         allowNull: false
       },
-      underscored: true
+      //underscored: true
     });
-  };
+  }; */
 
   return Message;
 };

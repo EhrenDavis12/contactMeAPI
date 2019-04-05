@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         isUUID: 4
       },
-      auth0_id: {
+      auth0Id: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -20,15 +20,20 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     {
-      freezeTableName: true,
-      underscored: true
+      freezeTableName: true
+      //underscored: true
     }
   );
 
   User.associate = function(models) {
     User.hasMany(models.message, {
       //as: "user_uuid",
-      underscored: true
+      //underscored: true,
+      onDelete: "cascade",
+      hooks: true,
+      foreignKey: {
+        allowNull: false
+      }
     });
   };
 
