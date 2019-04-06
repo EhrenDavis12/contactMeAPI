@@ -1,7 +1,8 @@
 module.exports = throwError = (code, errorType, errorMessage) => error => {
   if (!error) error = new Error(errorMessage || "Default Error");
-  error.code = code;
-  error.errorType = errorType;
+  if (errorMessage) error.message = errorMessage || "Default Error";
+  error.code = code || 400;
+  error.errorType = errorType || "Default Error Type";
   throw error;
 };
 
