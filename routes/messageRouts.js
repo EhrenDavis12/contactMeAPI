@@ -1,7 +1,7 @@
 const db = require("../models");
 
 module.exports = function(app) {
-  require("../businessLogic/message")(app);
+  require("../businessLogic/modelCRUD/message")(app);
   require("../businessLogic/util/errorHelpers");
 
   app.get("/api/v1/messages/", async function(req, res) {

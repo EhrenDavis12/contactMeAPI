@@ -1,7 +1,7 @@
-const db = require("../../models");
+const db = require("../../../models");
 
 module.exports = function(app) {
-  require("../util/errorHelpers");
+  require("../../util/errorHelpers");
 
   this.postMessage = async body => {
     if (!body) throwError(400, "invalid request", "No rest body provided")();
