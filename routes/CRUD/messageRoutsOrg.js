@@ -1,8 +1,8 @@
-const db = require("../models");
+const db = require("../../models");
 
 module.exports = function(app) {
-  require("../businessLogic/modelCRUD/message")(app);
-  require("../businessLogic/util/errorHelpers");
+  require("../../businessLogic/modelCRUD/message")(app);
+  require("../../businessLogic/util/errorHelpers");
 
   app.get("/api/v1/messages/hit/org", function(req, res) {
     sendSuccess(res, "Hit message end point")(basicHit());

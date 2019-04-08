@@ -1,18 +1,14 @@
-const db = require("../../../models");
-
 module.exports = function(app) {
-  require("../../util/errorHelpers");
+  require("../util/errorHelpers");
+  require("../modelCRUD/message")(app);
+  require("../modelCRUD/user")(app);
+  require("../sendMessages")(app);
 
-  this.postMessage = async body => {
-    if (!body) throwError(400, "invalid request", "No rest body provided")();
-
-    delete body.uuid;
-    let result = await db.message
-      .create(body)
-      .then(returnResults())
-      .catch(err => {
-        throwError(400, "Data Error")(err);
-      });
-    return result;
+  this.postMessageSendNotice = async body => {
+    const user = await getUserByUuid(body.userUuid);
+    const postMessageResult = await postMessage(body);
+    // post message
+    // get user whats app info
+    return postMessageResult;
   };
 };
