@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Routes
-require("./routes")(app);
+require("./routes/CRUD")(app);
+require("./routes/businessLogic")(app);
 
 const syncOptions = { force: true };
 
