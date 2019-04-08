@@ -1,22 +1,23 @@
-const db = require("../../models");
+const db = require("../../../models");
 
 module.exports = function(app) {
-  require("../util/errorHelpers");
+  require("../../util/errorHelpers");
 
-  this.getMessageByUuid = async uuid => {
+  this.deleteUser = async uuid => {
     if (!uuid) throwError(400, "invalid request", "No UUID provided")();
 
     let query = {};
     query.uuid = uuid;
 
-    let result = await db.message
-      .findOne({
+    let result = await db.user
+      .destroy({
         where: query
       })
       .then(returnResults())
-      .catch(error => {
+      .catch(err => {
         throwError(400, "Data Error")(err);
       });
+
     return result;
   };
 };

@@ -1,7 +1,7 @@
 const db = require("../models");
 
 module.exports = function(app) {
-  require("../businessLogic/user")(app);
+  require("../businessLogic/modelCRUD/user")(app);
   require("../businessLogic/util/errorHelpers");
 
   app.get("/api/v1/users/", async function(req, res) {
