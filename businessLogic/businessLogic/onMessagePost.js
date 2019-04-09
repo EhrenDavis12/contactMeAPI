@@ -7,8 +7,9 @@ module.exports = function(app) {
   this.postMessageSendNotice = async body => {
     const user = await getUserByUuid(body.userUuid);
     const postMessageResult = await postMessage(body);
-    // post message
-    // get user whats app info
-    return postMessageResult;
+    const results = await sendWhatsAppAppointmentReminders(
+      "Check your profile for a message!"
+    );
+    return results;
   };
 };
