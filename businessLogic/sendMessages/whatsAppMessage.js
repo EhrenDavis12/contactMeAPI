@@ -20,10 +20,12 @@ module.exports = function(app) {
     return result;
   };
 
-  this.sendWhatsAppAppointmentReminders = async () => {
+  this.sendWhatsAppAppointmentReminders = async message => {
     const postJson = {
       ...whatsAppBody,
-      body: "Your appointment is coming up on July 21 at 3PM"
+      body: message
+        ? message
+        : "Your appointment is coming up on July 21 at 3PM"
     };
     const result = await makeWhatsAppCall(postJson);
     return result;
