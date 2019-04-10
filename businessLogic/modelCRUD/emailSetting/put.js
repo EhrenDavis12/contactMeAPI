@@ -10,7 +10,7 @@ module.exports = function(app) {
     let query = {};
     query.uuid = body.uuid;
 
-    let result = await db.emailSettings
+    let result = await db.emailSetting
       .update(body, {
         where: query
       })

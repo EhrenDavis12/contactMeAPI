@@ -1,17 +1,17 @@
 module.exports = function(app) {
-  require("../../businessLogic/modelCRUD/emailSettings")(app);
+  require("../../businessLogic/modelCRUD/emailSetting")(app);
   require("../../businessLogic/util/errorHelpers");
 
   app.get("/api/v1/email_settings/", async function(req, res) {
     try {
-      const result = await getEmailSettingByUuid(req.query.uuid);
+      const result = await getEmailSettingByUuid(req.query);
       sendSuccess(res, "getEmailSettingByUuid")(result);
     } catch (err) {
       sendError(res)(err);
     }
   });
 
-  app.post("/api/v1/email_settings", async function(req, res) {
+  app.post("/api/v1/email_settings/", async function(req, res) {
     try {
       const result = await postEmailSetting(req.body);
       sendSuccess(res, "postEmailSetting")(result);

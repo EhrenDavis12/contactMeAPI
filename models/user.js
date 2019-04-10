@@ -17,17 +17,6 @@ module.exports = function(sequelize, DataTypes) {
             msg: "auth0_id length is not in range of 1-255"
           }
         }
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: null,
-        validate: {
-          len: {
-            args: [0, 255],
-            msg: "Name length is not in range of 0-255"
-          }
-        }
       }
     },
     {
@@ -47,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
 
-    User.hasOne(models.emailSettings, {
+    User.hasMany(models.emailSetting, {
       onDelete: "cascade",
       hooks: true,
       foreignKey: {

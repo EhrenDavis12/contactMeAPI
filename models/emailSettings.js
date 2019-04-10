@@ -8,6 +8,17 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         isUUID: 4
       },
+      service: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null,
+        validate: {
+          len: {
+            args: [0, 255],
+            msg: "service length is not in range of 0-255"
+          }
+        }
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -36,5 +47,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  return Message;
+  return EmailSetting;
 };

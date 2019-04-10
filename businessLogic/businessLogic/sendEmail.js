@@ -1,15 +1,28 @@
 module.exports = function(app) {
   require("../util/errorHelpers");
   require("../modelCRUD/message")(app);
-  require("../modelCRUD/user")(app);
+  //require("../modelCRUD/user")(app);
+  require("../modelCRUD/emailSetting")(app);
   require("../messageServices")(app);
 
-  this.postEmail = async (userUuid, messageUuid) => {
-    const message = await getMessageByUuid(messageUuid);
-    const emailSetting = await getEmailSettingByUserUuid(userUuid);
+  this.postEmail = async body => {
+    //const user = await getUserByUuid(body.userUuid);
+    const postMessageResult = await postMessage(body);
+    const emailSetting = await getEmailSettingByUuid({
+      userUuid: body.userUuid
+    });
 
-    initEmailService(service, emailAddress, password);
-    const result = await sendEmailService(from, to, subject, text);
+    initEmailService(
+      emailSetting.service | "gmail",
+      emailSetting.email | process.env.REACT_EMAIL_Address,
+      emailSetting.password | process.env.REACT_EMAIL_password
+    );
+    const result = await sendEmailService(
+      emailSetting.email,
+      emailSetting.email,
+      "subject",
+      "text"
+    );
     return result;
   };
 };

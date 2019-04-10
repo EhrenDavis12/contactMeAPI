@@ -7,7 +7,7 @@ module.exports = function(app) {
     if (!body) throwError(400, "invalid request", "No rest body provided")();
 
     delete body.uuid;
-    let result = await db.emailSettings
+    let result = await db.emailSetting
       .create(body)
       .then(returnResults())
       .catch(err => {

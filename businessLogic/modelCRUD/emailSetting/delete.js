@@ -9,7 +9,7 @@ module.exports = function(app) {
     let query = {};
     query.uuid = uuid;
 
-    let result = await db.emailSettings
+    let result = await db.emailSetting
       .destroy({
         where: query
       })
