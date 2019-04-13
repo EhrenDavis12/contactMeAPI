@@ -1,8 +1,8 @@
 module.exports = throwError = (code, errorType, errorMessage) => error => {
   if (!error) error = new Error(errorMessage || "Default Error");
   if (errorMessage) error.message = errorMessage || "Default Error";
-  error.code = code || 400;
-  error.errorType = errorType || "Default Error Type";
+  error.code = code || error.errorCode || error.code || 400;
+  error.errorType = errorType || error.errorType || "Default Error Type";
   throw error;
 };
 
@@ -22,9 +22,18 @@ module.exports = returnResults = () => data => {
 };
 
 module.exports = sendError = (res, code, message) => error => {
-  res.status(code || error.code).json({
-    type: "error",
-    message: message || error.message,
-    error
-  });
+  try {
+    res.status(code || error.code).json({
+      type: "error",
+      message: message || error.message,
+      error
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      type: "error",
+      message: "Issue in Error Handling",
+      err
+    });
+  }
 };

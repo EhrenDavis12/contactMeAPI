@@ -8,25 +8,20 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         isUUID: 4
       },
-      message: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-        defaultValue: null
-      },
-      name: {
+      subject: {
         type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: null,
+        allowNull: false,
+        defaultValue: "ContactMe Notification",
         validate: {
           len: {
-            args: [0, 255],
-            msg: "Name length is not in range of 0-255"
+            args: [1, 255],
+            msg: "subject length is not in range of 0-255"
           }
         }
       },
-      contactInfo: {
+      message: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
         defaultValue: null
       }
     },

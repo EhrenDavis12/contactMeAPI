@@ -3,13 +3,21 @@ module.exports = function(app) {
   require("../modelCRUD/message")(app);
   require("../modelCRUD/user")(app);
   require("../messageServices")(app);
+  require("./sendEmail")(app);
 
   this.postMessageSendNotice = async body => {
     const user = await getUserByUuid(body.userUuid);
     const postMessageResult = await postMessage(body);
-    const results = await sendWhatsAppAppointmentReminders(
-      "Check your profile for a message!"
-    );
-    return results;
+
+    if (user.phone) {
+      const whatsAppResult = await sendWhatsAppMessage(
+        "Check your profile for a message!",
+        user.phone
+      );
+    }
+    if (user.email) {
+      const EmailResult = await postEmail(body);
+    }
+    return "Success";
   };
 };
