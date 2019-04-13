@@ -17,6 +17,32 @@ module.exports = function(sequelize, DataTypes) {
             msg: "auth0_id length is not in range of 1-255"
           }
         }
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null,
+        validate: {
+          len: {
+            args: [0, 255],
+            msg: "email length is not in range of 0-255"
+          }
+        }
+      },
+      phone: {
+        type: DataTypes.STRING(20),
+        validate: {
+          validatePhone: function(value) {
+            if (
+              !/^(13|14|15|17|18)\d{9}$/i.test(value) &&
+              !/^((\(\d{2,3}\))|(\d{3}\-)|(\d{3}))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/i.test(
+                value
+              )
+            ) {
+              throw new Error("phone format error!");
+            }
+          }
+        }
       }
     },
     {
