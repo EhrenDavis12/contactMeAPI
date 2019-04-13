@@ -6,10 +6,10 @@ module.exports = function(app) {
   this.initEmailService = async () => {
     const auth = {
       type: "OAuth2",
-      user: process.env.REACT_EMAIL_user,
-      clientId: process.env.REACT_EMAIL_clientId,
-      clientSecret: process.env.REACT_EMAIL_clientSecret,
-      refreshToken: process.env.REACT_EMAIL_refreshToken
+      user: process.env.EMAIL_user,
+      clientId: process.env.EMAIL_clientId,
+      clientSecret: process.env.EMAIL_clientSecret,
+      refreshToken: process.env.EMAIL_refreshToken
     };
 
     transporter = nodemailer.createTransport({

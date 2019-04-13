@@ -1,49 +1,15 @@
 module.exports = function(app) {
   require("../util/errorHelpers");
   const client = require("twilio")(
-    process.env.REACT_TWILIO_accountSid,
-    process.env.REACT_TWILIO_authToken
+    process.env.TWILIO_accountSid,
+    process.env.TWILIO_authToken
   );
+  const whatsAppPrefixNumber = "whatsapp:+";
   const whatsAppBody = {
     body: "",
-    from: "whatsapp:+" + process.env.REACT_TWILIO_phone,
-    to: "",
-    Prefix: "whatsapp:+"
+    from: whatsAppPrefixNumber + process.env.TWILIO_phone,
+    to: ""
   };
-
-  /* this.sendWhatsAppOrderNotification = async To => {
-    const postJson = {
-      ...whatsAppBody,
-      body:
-        "Your Yummy Cupcakes Company order of 1 dozen frosted cupcakes has shipped and should be delivered on July 10, 2019. Details: http://www.yummycupcakes.com/",
-      to: this.handleTo(To)
-    };
-    const result = await makeWhatsAppCall(postJson);
-    return result;
-  }; */
-
-  /* this.sendWhatsAppAppointmentReminders = async (message, To) => {
-    const postJson = {
-      ...whatsAppBody,
-      body: message
-        ? message
-        : "Your appointment is coming up on July 21 at 3PM",
-      to: this.handleTo(To)
-    };
-    const result = await makeWhatsAppCall(postJson);
-    return result;
-  }; */
-
-  /* this.sendWhatsApp2wayMessage = async To => {
-    const postJson = {
-      ...whatsAppBody,
-      body:
-        "Hello! This is an editable text message. You are free to change it and write whatever you like.",
-      to: this.handleTo(To)
-    };
-    const result = await makeWhatsAppCall(postJson);
-    return result;
-  }; */
 
   this.sendWhatsAppMessage = async (message, To) => {
     const postJson = {
@@ -81,7 +47,7 @@ module.exports = function(app) {
 
   this.handleTo = To => {
     return To
-      ? whatsAppBody.Prefix + To
-      : whatsAppBody.Prefix + process.env.REACT_whatsApp_from;
+      ? whatsAppPrefixNumber + To
+      : whatsAppPrefixNumber + process.env.whatsApp_from;
   };
 };
