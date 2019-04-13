@@ -29,7 +29,7 @@ module.exports = function(app) {
     }
   });
 
-  app.delete("/api/v1/Users/", async function(req, res) {
+  app.delete("/api/v1/users/", async function(req, res) {
     try {
       const result = await deleteUser(req.query.uuid);
       sendSuccess(res, "deleteUser")(result);

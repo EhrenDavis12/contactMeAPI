@@ -2,7 +2,7 @@ module.exports = function(app) {
   require("../util/errorHelpers");
   require("../modelCRUD/message")(app);
   require("../modelCRUD/user")(app);
-  require("../sendMessages")(app);
+  require("../messageServices")(app);
 
   this.postMessageSendNotice = async body => {
     const user = await getUserByUuid(body.userUuid);
