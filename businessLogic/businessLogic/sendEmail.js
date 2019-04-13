@@ -12,16 +12,13 @@ module.exports = function(app) {
       userUuid: body.userUuid
     });
 
-    initEmailService(
-      emailSetting.service | "gmail",
-      emailSetting.email | process.env.REACT_EMAIL_Address,
-      emailSetting.password | process.env.REACT_EMAIL_password
-    );
+    initEmailService();
+
     const result = await sendEmailService(
       emailSetting.email,
       emailSetting.email,
-      "subject",
-      "text"
+      "subject hello world",
+      "text text and more"
     );
     return result;
   };

@@ -1,42 +1,37 @@
 module.exports = function(app) {
   const nodemailer = require("nodemailer");
   require("../util/errorHelpers");
-  const promisify = require("util").promisify;
   let transporter;
 
-  this.initEmailService = async (service, emailAddress, password) => {
+  this.initEmailService = async () => {
+    const auth = {
+      type: "OAuth2",
+      user: process.env.REACT_EMAIL_user,
+      clientId: process.env.REACT_EMAIL_clientId,
+      clientSecret: process.env.REACT_EMAIL_clientSecret,
+      refreshToken: process.env.REACT_EMAIL_refreshToken
+    };
+
     transporter = nodemailer.createTransport({
-      service,
-      auth: {
-        user: emailAddress,
-        pass: password
-      }
+      service: "gmail",
+      auth
     });
   };
 
   this.sendEmailService = async (from, to, subject, text) => {
     try {
-      const sendMail_Promise = promisify(transporter.sendMail);
       const mailOptions = { from, to, subject, text };
-      const result = await sendMail_Promise(mailOptions);
+      let result = await transporter
+        .sendMail(mailOptions)
+        .then(stuff => {
+          console.log(stuff);
+        })
+        .catch(err => {
+          throwError(null, "Email Service Error")(err);
+        });
       return result;
     } catch (err) {
       throwError(null, "Email Service Error")(err);
     }
   };
-
-  /* this.sendMail_Promise = mailOptions => {
-    return new Promise((resolve, reject) => {
-      transporter.sendMail(mailOptions, handleError);
-    });
-  }; */
-  /* 
-  this.handleError = async (error, info) => {
-    if (error) {
-      throwError(null, "Email Service Error")(error);
-    } else {
-      console.log("Email sent: " + info.response);
-      return info;
-    }
-  }; */
 };
