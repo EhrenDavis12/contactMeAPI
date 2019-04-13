@@ -1,7 +1,6 @@
 module.exports = function(app) {
   require("../util/errorHelpers");
   require("../modelCRUD/user")(app);
-  require("../modelCRUD/emailSetting")(app);
   require("../messageServices")(app);
 
   this.postEmail = async body => {

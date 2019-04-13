@@ -61,14 +61,6 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
-
-    User.hasMany(models.emailSetting, {
-      onDelete: "cascade",
-      hooks: true,
-      foreignKey: {
-        allowNull: false
-      }
-    });
   };
 
   return User;
