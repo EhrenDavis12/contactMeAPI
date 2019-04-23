@@ -2,10 +2,19 @@ module.exports = function(app) {
   require("../../businessLogic/modelCRUD/user")(app);
   require("../../businessLogic/util/errorHelpers");
 
-  app.get("/api/v1/users/", async function(req, res) {
+  /* app.get("/api/v1/users/", async function(req, res) {
     try {
       const result = await getUserByUuid(req.query.uuid);
       sendSuccess(res, "getUserByUuid")(result);
+    } catch (err) {
+      sendError(res)(err);
+    }
+  }); */
+
+  app.get("/api/v1/users/", async function(req, res) {
+    try {
+      const result = await getUserByAnyID(req.query);
+      sendSuccess(res, "getUserByAnyID")(result);
     } catch (err) {
       sendError(res)(err);
     }

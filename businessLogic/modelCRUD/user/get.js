@@ -19,4 +19,26 @@ module.exports = function(app) {
       });
     return result;
   };
+
+  this.getUserByAnyID = async query => {
+    if (!query)
+      throwError(400, "invalid request", "No Query ID data provided")();
+    if (!query.uuid && !query.auth0Id && !query.userUuid)
+      throwError(400, "invalid request", "No user UUID or auth ID provided")();
+
+    const localQuery = {};
+    if (query.uuid) localQuery.uuid = query.uuid;
+    if (query.auth0Id) localQuery.auth0Id = query.auth0Id;
+    if (query.userUuid && !query.uuid) localQuery.uuid = query.userUuid;
+
+    let result = await db.user
+      .findOne({
+        where: localQuery
+      })
+      .then(returnResults())
+      .catch(error => {
+        throwError(400, "Data Error")(err);
+      });
+    return result;
+  };
 };
