@@ -11,6 +11,15 @@ module.exports = function(app) {
     }
   });
 
+  app.get("/api/v1/messagesByUser/", async function(req, res) {
+    try {
+      const result = await getAllMessagesByUser(req.query);
+      sendSuccess(res, "getAllMessagesByUser")(result);
+    } catch (err) {
+      sendError(res)(err);
+    }
+  });
+
   app.post("/api/v1/messages", async function(req, res) {
     try {
       const result = await postMessage(req.body);

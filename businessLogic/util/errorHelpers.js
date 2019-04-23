@@ -23,10 +23,10 @@ module.exports = returnResults = () => data => {
 
 module.exports = sendError = (res, code, message) => error => {
   try {
-    res.status(code || error.code).json({
+    res.status(code || error.code || 400).json({
       type: "error",
-      message: message || error.message,
-      error
+      message: message || error.message || "Default Error",
+      error: error || null
     });
   } catch (err) {
     console.log(err);
