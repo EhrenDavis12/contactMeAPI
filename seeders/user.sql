@@ -8,3 +8,5 @@ select * from contactme.user;
 select * from contactme.message;
 drop table contactme.user;
 drop table contactme.message;
+
+delete from contactme.message;

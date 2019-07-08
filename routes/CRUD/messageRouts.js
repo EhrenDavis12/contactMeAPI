@@ -2,6 +2,15 @@ module.exports = function(app) {
   require("../../businessLogic/modelCRUD/message")(app);
   require("../../businessLogic/util/errorHelpers");
 
+  app.get("/api/v1/test/", async function(req, res) {
+    try {
+      const result = "Hit API Messages";
+      sendSuccess(res, "testHit")(result);
+    } catch (err) {
+      sendError(res)(err);
+    }
+  });
+
   app.get("/api/v1/messages/", async function(req, res) {
     try {
       const result = await getMessageByUuid(req.query.uuid);
