@@ -6,7 +6,7 @@ getFilesFromPath = (path, extension, app) => {
   return dir.filter(elm => {
     if (elm == "index.js") return;
     if (elm.match(new RegExp(`.*\.(${extension})`, "ig"))) {
-      require(path + "\\" + elm)(app);
+      require(path + "/" + elm)(app);
     }
   });
 };
